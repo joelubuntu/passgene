@@ -11,20 +11,20 @@ def password_generator():
     h = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
     i = random.choice(['no','hm','lo','py','gg','op','hi'])
     j = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
-
     print("Your random 10 digit password is: \n")
     password = ( a + b + c + d + e + f + g + i + j)
     print (password)
     print("\n")
-
     for i in range(1):
         print("would you like to save your password ? ")
-        z = input("Press y for yes , N for no , Q for quit: ")
-        if z == ("y") or ("Y"):
+        z = input("Press y for yes , n for no , q for quit: ")
+        if z == ("q"):
+            break
+        if z == ("y"):
             user_name = input("Enter your account username: ")
             account = input('This account is of:  ')
-            x = input("have you ever saved a file through this script\nPress Y for yes and N for no: ")
-            if x == ('Y') or ('y'):
+            x = input("have you ever saved a file through this script\nPress y for yes and n for no: ")
+            if x == ('y'):
                 password_file = open("password.txt" , "a")
                 password_file.write("\n\n")
                 password_file.write(account)
@@ -34,7 +34,7 @@ def password_generator():
                 password_file.write("your password of " + account + " is " + password)
                 password_file.close()
                 print("Your password file is saved :3")
-            elif x == ('N') or ('n'):
+            elif x == ('n'):
                 password_file = open("password.txt" , "w")
                 password_file.write(account)
                 password_file.write("\n")
@@ -50,7 +50,7 @@ def password_generator():
 def pass_view():
     try:
         password_file = open("password.txt" , "r")
-        print("Your saved passwords are: ")
+        print("Your saved passwords are: \n")
         print(password_file.read())
         password_file.close()
     except:
@@ -73,4 +73,4 @@ else:
 # coded by !     Mr.JoE  
 # created on 22 OCTOBER 2020
 # updated on 22 OCTOBER 2020
-# no copyright
+# no copyright :3
