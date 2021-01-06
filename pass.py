@@ -1,4 +1,16 @@
 import random
+import os
+import datetime
+def welcome():
+    user_name = os.getlogin()
+    time = datetime.datetime.now().hour
+    if time <= 12 and time >= 5:
+        print('Good morning,')
+    elif time <= 17 and time >= 12:
+        print('Good afternoon,')
+    elif time <= 23 and time >= 17:
+        print('Good evening,')
+    return user_name
 def password_generator():
     print('Welcome to Password generator :)') 
     a = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
@@ -12,12 +24,13 @@ def password_generator():
     i = random.choice(['no','hm','lo','py','gg','op','hi'])
     j = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
     print("Your random 10 digit password is: \n")
-    password = ( a + b + c + d + e + f + g + i + j)
+    password = ( a + b + c + d + e + f + g + h + i + j)
     print (password)
     print("\n")
-    for i in range(1):
+    for i in range(3):
         print("would you like to save your password ? ")
         z = input("Press y for yes , n for no , q for quit: ")
+        z.lower()
         if z == ("q"):
             break
         if z == ("y"):
@@ -37,7 +50,7 @@ def password_generator():
             elif x == ('n'):
                 password_file = open("password.txt" , "w")
                 password_file.write(account)
-                password_file.write("\n")
+                password_file.write("\n\n")
                 password_file.write("your username is " + user_name)
                 password_file.write("\n")
                 password_file.write("your password of " + account + " is " +password)
@@ -47,6 +60,19 @@ def password_generator():
                 print("invalid input")
         else:
             print("As you wish \n have a nice day")
+def add():
+    account = input("This account is of: ")
+    user_name = input("Enter your account username: ")
+    password = input ("Enter your password: ")
+    password_file = open("password.txt" , "a")
+    password_file.write("\n\n")
+    password_file.write(account)
+    password_file.write("\n")
+    password_file.write("your username is" + user_name)
+    password_file.write("\n")
+    password_file.write("your password of " + account + "is" + password + "\n")
+    password_file.close()
+    print("Password was saved :3")
 def pass_view():
     try:
         password_file = open("password.txt" , "r")
@@ -56,21 +82,25 @@ def pass_view():
     except:
         print("file unavailable!")
 def help():
-    print("gen_pass - it genrates new password of 10 digits")
-    print("view_pass - it prints saved password if file is not renamed or modified")
+    print("gen pass - it genrates new password of 10 digits.")
+    print("view pass - it prints saved password if file is not renamed or modified.")
+    print("add - through this feature you can add you custom password in password file. ")
     print("thats all , I'm noob in this ;-;")
-
+print(welcome())
 print('Type help for help.')
 user_cmd = input("Enter your command here: ")
-if user_cmd == ("gen_pass"):
+if (user_cmd.lower()) == ("gen pass"):
     password_generator()
-elif user_cmd == ("help"):
+elif (user_cmd.lower()) == ("help"):
     help()
-elif user_cmd  == ("view_pass"):
+elif (user_cmd.lower())  == ("view pass"):
     pass_view()
+elif (user_cmd.lower())  == ("add"):
+    add()
 else:
     print("Invalid input")
 # coded by !     Mr.JoE  
-# created on 22 OCTOBER 2020
-# updated on 22 OCTOBER 2020
+# created on 22 OCT 2020
+# updated on 6 JAN 2021
 # no copyright :3
+#
