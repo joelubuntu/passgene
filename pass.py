@@ -1,6 +1,7 @@
 import random
 import os
 import datetime
+from cryptography.fernet import Fernet
 def welcome():
     user_name = os.getlogin()
     time = datetime.datetime.now().hour
@@ -81,10 +82,39 @@ def pass_view():
         password_file.close()
     except:
         print("file unavailable!")
+def encrypt():
+    try:
+        Key = Fernet.generate_key()
+        f = Fernet(Key)
+        with open('key.key','wb') as key:
+            key.write(Key)
+        with open('password.txt','rb') as passwords:
+            plain_txt = passwords.read()
+        en_txt = f.encrypt(plain_txt)
+        with open('en_password.txt','wb') as en_pass:
+            en_pass.write(en_txt)
+        print('Encryption done!')
+    except:
+        print('failed encryption!')
+def decrypt():
+    try:
+        with open('key.key','rb') as key:
+            Key = key.read()
+        f = Fernet(Key)
+        with open('en_password.txt','rb') as en_pass:
+            en_txt = en_pass.read()
+        de = f.decrypt(en_txt)
+        with open('de_password.txt','wb') as de_pass:
+            de_pass.write(de)
+        print('Decryption done!')
+    except:
+        print('failed decryption')
 def help():
     print("gen pass - it genrates new password of 10 digits.")
     print("view pass - it prints saved password if file is not renamed or modified.")
     print("add - through this feature you can add you custom password in password file. ")
+    print("encrypt - it encrypt password file")
+    print("decrypt - it decrypt password file")
     print("thats all , I'm noob in this ;-;")
 print(welcome())
 print('Type help for help.')
@@ -97,10 +127,13 @@ elif (user_cmd.lower())  == ("view pass"):
     pass_view()
 elif (user_cmd.lower())  == ("add"):
     add()
+elif user_cmd.lower() == ("encrypt"):
+    encrypt()
+elif user_cmd.lower() == ("decrypt"):
+    decrypt()
 else:
     print("Invalid input")
 # coded by !     Mr.JoE  
 # created on 22 OCT 2020
-# updated on 2 FEB 2021
+# updated on 6 JAN 2021
 # no copyright :3
-#
