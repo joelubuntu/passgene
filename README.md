@@ -1,8 +1,4 @@
-# passgene
-It generate random 10 digits password and you can save it.
-This python script generate random 10 digit password. 
-since the password is generated is a bit complex you can save this password file.
-password file is saved with .txt extension.
-don't modify or rename the else view_pass function won't work
-password file is saved in the same folder where the python file is saved
-Thank you :)
+This python script can generate 10 digit strong password and you can save it.
+encrypt function will encrypt your password file and when you need it you can decrypt it using decrypt function
+pls do not modify or delete any file this may result in lose of passwords 
+thank you!
