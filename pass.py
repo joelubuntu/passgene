@@ -80,8 +80,13 @@ def pass_view():
         print("Your saved passwords are: \n")
         print(password_file.read())
         password_file.close()
+        os.remove("password.txt")
     except:
-        print("file unavailable!")
+        try:
+            decrypt()
+            pass_view()
+        except:
+            print("file unavailable!")
 def encrypt():
     try:
         Key = Fernet.generate_key()
@@ -135,5 +140,5 @@ else:
     print("Invalid input")
 # coded by !     Mr.JoE  
 # created on 22 OCT 2020
-# updated on 6 JAN 2021
+# updated on 27 FEB 2021
 # no copyright :3
