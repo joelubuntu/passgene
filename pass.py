@@ -1,4 +1,4 @@
-import datetime , random , os , sys
+import datetime , random , os , sys , time
 from cryptography.fernet import Fernet
 
 def pass_gen():
@@ -85,38 +85,72 @@ def decrypt(appending_txt):
 	encrypt()
 
 def main_menu():
-	print('+------------------------------------------------------------------------------------------------+')
-	print("|gen pass - it genrates new password of 10 digits.                                               |")
-	print("|view pass - it prints saved password if file is not renamed or modified.                        |")
-	print("|add - through this feature you can add you custom password in password file.                    |")
-	print('+------------------------------------------------------------------------------------------------+')
-	exit  = False
-	while exit == False:
-		user_input = str(input("Enter your command: "))
-		if user_input.lower() == "exit" or user_input.lower() == "quit":
-			exit = True
-		elif user_input.lower() == ("gen pass"):
-			pass_gen()
-		elif user_input.lower() == ("view pass"):
-			view_pass()
-		elif user_input.lower() == ("add"):
-			add()
-		elif user_input.lower() == "clear" or user_input.lower() == "cls":
-			if sys.platform == ("win32"):
-				os.system("cls")
-			elif sys.platform == ("linux") or sys.platform == ("linux2"):
-				os.system("clear")
+	with open('.master_key.txt','rb') as master_key:
+		master_pass = master_key.read()
+	user_key = input("\n Enter your master password: ")
+	with open('.key.key' , 'rb') as key:
+		Key = key.read()
+	f = Fernet(Key)
+	passwd = f.decrypt(master_pass)
+	if passwd == user_key.encode():
+		print("Access Granted! \n")
+		print('+------------------------------------------------------------------------------------------------+')
+		print("|gen pass - it genrates new password of 10 digits.                                               |")
+		print("|view pass - it prints saved password if file is not renamed or modified.                        |")
+		print("|add - through this feature you can add you custom password in password file.                    |")
+		print("|reset - it format saved password database                                                       |")
+		print('+------------------------------------------------------------------------------------------------+')
+		exit,reset_B  = False , False
+		while exit == False and reset_B == False:
+			user_input = str(input("Enter your command: "))
+			if user_input.lower() == "exit" or user_input.lower() == "quit":
+				exit = True
+			elif user_input.lower() == ("gen pass"):
+				pass_gen()
+			elif user_input.lower() == ("view pass"):
+				view_pass()
+			elif user_input.lower() == ("add"):
+				add()
+			elif user_input.lower() == "clear" or user_input.lower() == "cls":
+				if sys.platform == ("win32"):
+					os.system("cls")
+				elif sys.platform == ("linux") or sys.platform == ("linux2"):
+					os.system("clear")
+			elif user_input.lower() == ("reset"):
+				verify = input("Type YES to proceed reset operation: ")
+				if verify == ("YES"):
+					reset()
+					reset_B = True
+				else:
+					print("reset operation STOPED!")
+
+	else:
+		print("Try Again!")
+		main_menu()
+
 def init():
 	Key = Fernet.generate_key()
 	f = Fernet(Key)
+	master_password = input("Set your master password: ").encode()
 	with open('.key.key' , 'wb') as key:
 		key.write(Key)
+	en_master = f.encrypt(master_password)
+	with open('.master_key.txt','wb') as master_key:
+		master_key.write(en_master)
 	en_data = open(".de_data.txt","w")
 	en_data.write("This is Password file!")
 	en_data.close()
-	print('setup completed!')
 	encrypt()
+	time.sleep(5)
+	print('setup completed!')
 	main_menu()
+
+def reset():
+	os.remove(".key.key")
+	os.remove(".en_data.txt")
+	os.remove(".master_key.txt")
+
+welcome()
 
 try:
 	key_open = open('.key.key','r')
