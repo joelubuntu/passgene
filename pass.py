@@ -1,144 +1,129 @@
-import random
-import os
-import datetime
+import datetime , random , os , sys
 from cryptography.fernet import Fernet
-def welcome():
-    user_name = os.getlogin()
-    time = datetime.datetime.now().hour
-    if time <= 12 and time >= 5:
-        print('Good morning,')
-    elif time <= 17 and time >= 12:
-        print('Good afternoon,')
-    elif time <= 23 and time >= 17:
-        print('Good evening,')
-    return user_name
-def password_generator():
-    print('Welcome to Password generator :)') 
-    a = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
-    b = random.choice(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
-    c = random.choice([':','!','@','#','$','%','^','&','*','(',')','_','+','|',';','.','`','<','>','?','~'])
-    d = random.choice(['1','2','3','4','5','6','7','8','9','0'])
-    e = random.choice(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
-    f = random.choice(['1','2','3','4','5','6','7','8','9','0'])
-    g = random.choice([':','!','@','#','$','%','^','&','*','(',')','_','+','|',';','.','`','<','>','?','~'])
-    h = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
-    i = random.choice(['no','hm','lo','py','gg','op','hi'])
-    j = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
-    print("Your random 10 digit password is: \n")
-    password = ( a + b + c + d + e + f + g + h + i + j)
-    print (password)
-    print("\n")
-    for i in range(3):
-        print("would you like to save your password ? ")
-        z = input("Press y for yes , n for no , q for quit: ")
-        z.lower()
-        if z == ("q"):
-            break
-        if z == ("y"):
-            user_name = input("Enter your account username: ")
-            account = input('This account is of:  ')
-            x = input("have you ever saved a file through this script\nPress y for yes and n for no: ")
-            if x == ('y'):
-                password_file = open("password.txt" , "a")
-                password_file.write("\n\n")
-                password_file.write(account)
-                password_file.write("\n")
-                password_file.write("your username is " + user_name)
-                password_file.write("\n")
-                password_file.write("your password of " + account + " is " + password)
-                password_file.close()
-                print("Your password file is saved :3")
-            elif x == ('n'):
-                password_file = open("password.txt" , "w")
-                password_file.write(account)
-                password_file.write("\n\n")
-                password_file.write("your username is " + user_name)
-                password_file.write("\n")
-                password_file.write("your password of " + account + " is " +password)
-                password_file.close()
-                print("Your password file is saved :3")
-            else:
-                print("invalid input")
-        else:
-            print("As you wish \n have a nice day")
+
+def pass_gen():
+	a = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
+	b = random.choice(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
+	c = random.choice([':','!','@','#','$','%','^','&','*','(',')','_','+','|',';','.','`','<','>','?','~'])
+	d = random.choice(['1','2','3','4','5','6','7','8','9','0'])
+	e = random.choice(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
+	f = random.choice(['1','2','3','4','5','6','7','8','9','0'])
+	g = random.choice([':','!','@','#','$','%','^','&','*','(',')','_','+','|',';','.','`','<','>','?','~'])
+	h = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
+	i = random.choice(['no','hm','lo','py','gg','op','hi'])
+	j = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
+	passwd = ( a + b + c + d + e + f + g + h + i + j )
+	print("\nYour random 10 digit password is: " + passwd)
+	user_input = input("\nWould you like to save your password? \n Press y for YES and n for NO: ")
+	if user_input.lower() == ('y'):
+		account = input("\nThis password is for which site / app : ")
+		username = input("username of " + account + ": " )
+		appending_txt = ("\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + "is: " + passwd)
+		decrypt(appending_txt)
+	else:
+		print("Okay as you wish!")
+
 def add():
-    account = input("This account is of: ")
-    user_name = input("Enter your account username: ")
-    password = input ("Enter your password: ")
-    password_file = open("password.txt" , "a")
-    password_file.write("\n\n")
-    password_file.write(account)
-    password_file.write("\n")
-    password_file.write("your username is" + user_name)
-    password_file.write("\n")
-    password_file.write("your password of " + account + "is" + password + "\n")
-    password_file.close()
-    print("Password was saved :3")
-def pass_view():
-    try:
-        password_file = open("password.txt" , "r")
-        print("Your saved passwords are: \n")
-        print(password_file.read())
-        password_file.close()
-        os.remove("password.txt")
-    except:
-        try:
-            decrypt()
-            pass_view()
-        except:
-            print("file unavailable!")
+	account = input("\nThis account is of: ")
+	username = input("Enter your account username: ")
+	passwd = input ("Enter your password: ")
+	appending_txt = ("\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + "is: " + passwd + "\n\n")
+	decrypt(appending_txt)
+
+def view_pass():
+	with open(".en_data.txt","rb") as en_data:
+		data = en_data.read()
+	with open(".key.key","rb") as key:
+		Key = key.read()
+	f = Fernet(Key)
+	de_data = f.decrypt(data)
+	with open(".de_data.txt","wb") as de_file_data:
+		de_file_data.write(de_data)
+	view = open('.de_data.txt','r')
+	print(view.read())
+	os.remove(".de_data.txt")
+
+def welcome():
+	name = os.getlogin()
+	time = datetime.datetime.now().hour
+	if time <= 12 and time >= 5:
+		print('Good Morning')
+	elif time <= 17 and time >=12:
+		print("Good Afternoon")
+	elif time <= 23 and time >= 17:
+		print("Good Evening")
+	return name
+
+
 def encrypt():
-    try:
-        Key = Fernet.generate_key()
-        f = Fernet(Key)
-        with open('key.key','wb') as key:
-            key.write(Key)
-        with open('password.txt','rb') as passwords:
-            plain_txt = passwords.read()
-        en_txt = f.encrypt(plain_txt)
-        with open('en_password.txt','wb') as en_pass:
-            en_pass.write(en_txt)
-        print('Encryption done!')
-    except:
-        print('failed encryption!')
-def decrypt():
-    try:
-        with open('key.key','rb') as key:
-            Key = key.read()
-        f = Fernet(Key)
-        with open('en_password.txt','rb') as en_pass:
-            en_txt = en_pass.read()
-        de = f.decrypt(en_txt)
-        with open('de_password.txt','wb') as de_pass:
-            de_pass.write(de)
-        print('Decryption done!')
-    except:
-        print('failed decryption')
-def help():
-    print("gen pass - it genrates new password of 10 digits.")
-    print("view pass - it prints saved password if file is not renamed or modified.")
-    print("add - through this feature you can add you custom password in password file. ")
-    print("encrypt - it encrypt password file")
-    print("decrypt - it decrypt password file")
-    print("thats all , I'm noob in this ;-;")
-print(welcome())
-print('Type help for help.')
-user_cmd = input("Enter your command here: ")
-if (user_cmd.lower()) == ("gen pass"):
-    password_generator()
-elif (user_cmd.lower()) == ("help"):
-    help()
-elif (user_cmd.lower())  == ("view pass"):
-    pass_view()
-elif (user_cmd.lower())  == ("add"):
-    add()
-elif user_cmd.lower() == ("encrypt"):
-    encrypt()
-elif user_cmd.lower() == ("decrypt"):
-    decrypt()
-else:
-    print("Invalid input")
-# coded by !     Mr.JoE  
-# created on 22 OCT 2020
-# updated on 27 FEB 2021
-# no copyright :3
+	with open('.de_data.txt','rb') as file_data:
+		data = file_data.read()
+	with open('.key.key','rb') as key:
+		Key = key.read()
+	f = Fernet(Key)
+	en_data = f.encrypt(data)
+	with open('.en_data.txt','wb') as en_file_data:
+		en_file_data.write(en_data)
+	os.remove('.de_data.txt')
+	print('Done!')
+
+def decrypt(appending_txt):
+	#print(type(appending_txt))
+	#print(appending_txt)
+	with open(".en_data.txt","rb") as en_data:
+		data = en_data.read()
+	with open(".key.key","rb") as key:
+		Key = key.read()
+	f = Fernet(Key)
+	de_data = f.decrypt(data)
+	with open(".de_data.txt","wb") as de_file_data:
+		de_file_data.write(de_data)
+	new_de = open('.de_data.txt','a')
+	new_de.write(appending_txt)
+	new_de.close()
+	os.remove('.en_data.txt')
+	encrypt()
+
+def main_menu():
+	print('+------------------------------------------------------------------------------------------------+')
+	print("|gen pass - it genrates new password of 10 digits.                                               |")
+	print("|view pass - it prints saved password if file is not renamed or modified.                        |")
+	print("|add - through this feature you can add you custom password in password file.                    |")
+	print('+------------------------------------------------------------------------------------------------+')
+	exit  = False
+	while exit == False:
+		user_input = str(input("Enter your command: "))
+		if user_input.lower() == "exit" or user_input.lower() == "quit":
+			exit = True
+		elif user_input.lower() == ("gen pass"):
+			pass_gen()
+		elif user_input.lower() == ("view pass"):
+			view_pass()
+		elif user_input.lower() == ("add"):
+			add()
+		elif user_input.lower() == "clear" or user_input.lower() == "cls":
+			if sys.platform == ("win32"):
+				os.system("cls")
+			elif sys.platform == ("linux") or sys.platform == ("linux2"):
+				os.system("clear")
+def init():
+	Key = Fernet.generate_key()
+	f = Fernet(Key)
+	with open('.key.key' , 'wb') as key:
+		key.write(Key)
+	en_data = open(".de_data.txt","w")
+	en_data.write("This is Password file!")
+	en_data.close()
+	print('setup completed!')
+	encrypt()
+	main_menu()
+
+try:
+	key_open = open('.key.key','r')
+	file_open = open('.en_data.txt','r')
+	key_open.close()
+	file_open.close()
+except:
+	init()
+
+main_menu()
