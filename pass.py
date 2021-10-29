@@ -68,8 +68,6 @@ def encrypt():
 	print('Done!')
 
 def decrypt(appending_txt):
-	#print(type(appending_txt))
-	#print(appending_txt)
 	with open(".en_data.txt","rb") as en_data:
 		data = en_data.read()
 	with open(".key.key","rb") as key:
@@ -83,6 +81,17 @@ def decrypt(appending_txt):
 	new_de.close()
 	os.remove('.en_data.txt')
 	encrypt()
+
+def dev_decrypt():
+	with open(".en_data.txt","rb") as en_data:
+		data = en_data.read()
+	with open(".key.key","rb") as key:
+		Key = key.read()
+	f = Fernet(Key)
+	de_data = f.decrypt(data)
+	with open(".de_data.txt","wb") as de_file_data:
+		de_file_data.write(de_data)
+	os.remove(".en_data.txt")
 
 def main_menu():
 	with open('.master_key.txt','rb') as master_key:
@@ -111,6 +120,10 @@ def main_menu():
 				view_pass()
 			elif user_input.lower() == ("add"):
 				add()
+			elif user_input.lower() == ("dev_decrypt"):
+				dev_decrypt()
+			elif user_input.lower() == ("encrypt"):
+				encrypt()
 			elif user_input.lower() == "clear" or user_input.lower() == "cls":
 				if sys.platform == ("win32"):
 					os.system("cls")
@@ -141,7 +154,7 @@ def init():
 	en_data.write("This is Password file!")
 	en_data.close()
 	encrypt()
-	time.sleep(5)
+	time.sleep(3)
 	print('setup completed!')
 	main_menu()
 
