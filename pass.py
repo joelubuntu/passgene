@@ -93,6 +93,11 @@ def dev_decrypt():
 		de_file_data.write(de_data)
 	os.remove(".en_data.txt")
 
+def reset():
+	os.remove(".key.key")
+	os.remove(".en_data.txt")
+	os.remove(".master_key.txt")
+
 def main_menu():
 	with open('.master_key.txt','rb') as master_key:
 		master_pass = master_key.read()
@@ -124,12 +129,14 @@ def main_menu():
 				dev_decrypt()
 			elif user_input.lower() == ("encrypt"):
 				encrypt()
+			elif user_input.lower() == ("settings change master key"):
+				master_change()
 			elif user_input.lower() == "clear" or user_input.lower() == "cls":
 				if sys.platform == ("win32"):
 					os.system("cls")
 				elif sys.platform == ("linux") or sys.platform == ("linux2"):
 					os.system("clear")
-			elif user_input.lower() == ("reset"):
+			elif user_input.lower() == ("settings reset"):
 				verify = input("Type YES to proceed reset operation: ")
 				if verify == ("YES"):
 					reset()
@@ -158,10 +165,17 @@ def init():
 	print('setup completed!')
 	main_menu()
 
-def reset():
-	os.remove(".key.key")
-	os.remove(".en_data.txt")
+def master_change():
 	os.remove(".master_key.txt")
+	master_password = input("Set your new master password: ").encode()
+	with open('.key.key','rb') as key:
+		Key = key.read()
+	f = Fernet(Key)
+	en_pass = f.encrypt(master_password)
+	with open('.master_key.txt','wb') as master_key:
+		master_key.write(en_pass)
+	print("password changed! ")
+	main_menu()
 
 welcome()
 
@@ -174,3 +188,5 @@ except:
 	init()
 
 main_menu()
+
+#last updated 06 NOV 2021
