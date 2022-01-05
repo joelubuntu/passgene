@@ -39,8 +39,12 @@ def view_pass():
 	de_data = f.decrypt(data)
 	with open(".de_data.txt","wb") as de_file_data:
 		de_file_data.write(de_data)
+	de_file_data.close()
+	key.close()
+	en_data.close()
 	view = open('.de_data.txt','r')
 	print(view.read())
+	view.close()
 	os.remove(".de_data.txt")
 
 def welcome():
@@ -64,6 +68,9 @@ def encrypt():
 	en_data = f.encrypt(data)
 	with open('.en_data.txt','wb') as en_file_data:
 		en_file_data.write(en_data)
+	en_file_data.close()
+	key.close()
+	file_data.close()
 	os.remove('.de_data.txt')
 	print('Done!')
 
@@ -79,6 +86,9 @@ def decrypt(appending_txt):
 	new_de = open('.de_data.txt','a')
 	new_de.write(appending_txt)
 	new_de.close()
+	key.close()
+	en_data.close()
+	de_file_data.close()
 	os.remove('.en_data.txt')
 	encrypt()
 
@@ -91,6 +101,9 @@ def dev_decrypt():
 	de_data = f.decrypt(data)
 	with open(".de_data.txt","wb") as de_file_data:
 		de_file_data.write(de_data)
+	en_data.close()
+	key.close()
+	de_file_data.close()
 	os.remove(".en_data.txt")
 
 def reset():
@@ -107,6 +120,8 @@ def main_menu():
 	f = Fernet(Key)
 	passwd = f.decrypt(master_pass)
 	if passwd == user_key.encode():
+		key.close()
+		master_key.close()
 		print("Access Granted! \n")
 		print('+------------------------------------------------------------------------------------------------+')
 		print("|gen pass - it genrates new password of 10 digits.                                               |")
@@ -143,7 +158,6 @@ def main_menu():
 					reset_B = True
 				else:
 					print("reset operation STOPED!")
-
 	else:
 		print("Try Again!")
 		main_menu()
@@ -160,8 +174,10 @@ def init():
 	en_data = open(".de_data.txt","w")
 	en_data.write("This is Password file!")
 	en_data.close()
+	key.close()
+	master_key.close()
 	encrypt()
-	time.sleep(3)
+	time.sleep(5)
 	print('setup completed!')
 	main_menu()
 
@@ -174,10 +190,12 @@ def master_change():
 	en_pass = f.encrypt(master_password)
 	with open('.master_key.txt','wb') as master_key:
 		master_key.write(en_pass)
+	master_key.close()
+	key.close()
 	print("password changed! ")
 	main_menu()
 
-welcome()
+#welcome()
 
 try:
 	key_open = open('.key.key','r')
@@ -189,4 +207,4 @@ except:
 
 main_menu()
 
-#last updated 06 NOV 2021
+#last updated 05 JAN 2022
