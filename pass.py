@@ -18,7 +18,7 @@ def pass_gen():
 	if user_input.lower() == ('y'):
 		account = input("\nThis password is for which site / app : ")
 		username = input("username of " + account + ": " )
-		appending_txt = ("\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + "is: " + passwd)
+		appending_txt = ("\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + " is: " + passwd)
 		decrypt(appending_txt)
 	else:
 		print("Okay as you wish!")
@@ -27,7 +27,7 @@ def add():
 	account = input("\nThis account is of: ")
 	username = input("Enter your account username: ")
 	passwd = input ("Enter your password: ")
-	appending_txt = ("\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + "is: " + passwd + "\n\n")
+	appending_txt = ("\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + " is: " + passwd + "\n\n")
 	decrypt(appending_txt)
 
 def view_pass():
@@ -56,7 +56,7 @@ def welcome():
 		print("Good Afternoon")
 	elif time <= 23 and time >= 17:
 		print("Good Evening")
-	return name
+	print(name)
 
 
 def encrypt():
@@ -158,6 +158,8 @@ def main_menu():
 					reset_B = True
 				else:
 					print("reset operation STOPED!")
+			else:
+				print('\nEnter valid command.\n')
 	else:
 		print("Try Again!")
 		main_menu()
@@ -195,7 +197,7 @@ def master_change():
 	print("password changed! ")
 	main_menu()
 
-#welcome()
+welcome()
 
 try:
 	key_open = open('.key.key','r')
