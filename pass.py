@@ -1,4 +1,4 @@
-import datetime , random , os , sys , time
+import datetime , random , os , sys , time , platform
 from cryptography.fernet import Fernet
 
 def pass_gen():
@@ -110,6 +110,7 @@ def reset():
 	os.remove(".key.key")
 	os.remove(".en_data.txt")
 	os.remove(".master_key.txt")
+	exit = True
 
 def main_menu():
 	with open('.master_key.txt','rb') as master_key:
@@ -129,6 +130,7 @@ def main_menu():
 		print("|add - through this feature you can add you custom password in password file.                    |")
 		print("|reset - it format saved password database                                                       |")
 		print('+------------------------------------------------------------------------------------------------+')
+		global exit , reset_B
 		exit,reset_B  = False , False
 		while exit == False and reset_B == False:
 			user_input = str(input("Enter your command: "))
@@ -151,11 +153,12 @@ def main_menu():
 					os.system("cls")
 				elif sys.platform == ("linux") or sys.platform == ("linux2"):
 					os.system("clear")
-			elif user_input.lower() == ("settings reset"):
+			elif user_input.lower() == ("reset"):
 				verify = input("Type YES to proceed reset operation: ")
 				if verify == ("YES"):
-					reset()
+					print('Password database has been deleted')
 					reset_B = True
+					reset()
 				else:
 					print("reset operation STOPED!")
 			else:
@@ -179,7 +182,11 @@ def init():
 	key.close()
 	master_key.close()
 	encrypt()
-	time.sleep(5)
+	if platform.system() == 'Windows':    
+		os.system("attrib +h .master_key.txt")
+		os.system("attrib +h .en_data.txt")
+		os.system("attrib +h .key.key")
+	time.sleep(2)
 	print('setup completed!')
 	main_menu()
 
@@ -209,4 +216,4 @@ except:
 
 main_menu()
 
-#last updated 05 JAN 2022
+#last updated 10 MAY 2022
