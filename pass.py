@@ -113,6 +113,10 @@ def reset():
 	exit = True
 
 def main_menu():
+	if platform.system() == 'Windows':    
+		os.system("attrib +h .master_key.txt")
+		os.system("attrib +h .en_data.txt")
+		os.system("attrib +h .key.key")
 	with open('.master_key.txt','rb') as master_key:
 		master_pass = master_key.read()
 	user_key = input("\n Enter your master password: ")
@@ -216,4 +220,4 @@ except:
 
 main_menu()
 
-#last updated 10 MAY 2022
+#last updated 16 MAY 2022
