@@ -1,6 +1,11 @@
 import datetime , random , os , sys , time , platform
-from cryptography.fernet import Fernet
-
+try:
+	from cryptography.fernet import Fernet
+except:
+	if platform.system() == 'Windows':
+		os.system("pip intall cryptography")
+	elif platform.system() == 'Linux':
+		os.system("pip3 intall cryptography")
 def pass_gen():
 	a = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
 	b = random.choice(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
@@ -113,10 +118,6 @@ def reset():
 	exit = True
 
 def main_menu():
-	if platform.system() == 'Windows':    
-		os.system("attrib +h .master_key.txt")
-		os.system("attrib +h .en_data.txt")
-		os.system("attrib +h .key.key")
 	with open('.master_key.txt','rb') as master_key:
 		master_pass = master_key.read()
 	user_key = input("\n Enter your master password: ")
@@ -220,4 +221,4 @@ except:
 
 main_menu()
 
-#last updated 16 MAY 2022
+#last updated 07 SEPT 2022
