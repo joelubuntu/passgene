@@ -1,6 +1,5 @@
 open terminal type : git clone https://github.com/joelubuntu/passgene
 type: cd passgene
-type: pip install -r requirements.txt (this may take some time depending upon internet speed)
 type: python pass.py (this will execute the script.)
 
 enjoy :3
