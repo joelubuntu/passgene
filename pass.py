@@ -219,6 +219,51 @@ try:
 except:
 	init()
 
-main_menu()
+if sys.platform == ("win32"):
+	os.system("attrib +h .en_data.txt")
+	os.system("attrib +h .key.key")
+	os.system("attrib +h .master_key.txt")
 
-#last updated 07 SEPT 2022
+try:
+	with open('.master_key.txt','rb') as master_key:
+		master_pass = master_key.read()
+	user_key = str(sys.argv[1])
+	with open('.key.key' , 'rb') as key:
+		Key = key.read()
+	f = Fernet(Key)
+	passwd = f.decrypt(master_pass)
+	if passwd == user_key.encode():
+		key.close()
+		master_key.close()
+		print("Access Granted! \n")
+		if sys.argv[2].lower() == ("gen"):
+			pass_gen()
+		elif sys.argv[2].lower() == ("view"):
+				view_pass()
+		elif sys.argv[2].lower() == ("add"):
+			add()
+		elif sys.argv[2].lower() == ("dev_decrypt"):
+			dev_decrypt()
+		elif sys.argv[2].lower() == ("encrypt"):
+			encrypt()
+		elif sys.argv[2].lower() == ("settings change master key"):
+			master_change()
+		elif sys.argv[2].lower() == "clear" or sys.argv[2].lower() == "cls":
+			if sys.platform == ("win32"):
+				os.system("cls")
+		elif sys.platform == ("linux") or sys.platform == ("linux2"):
+			os.system("clear")
+		elif sys.argv[2].lower() == ("reset"):
+			verify = input("Type YES to proceed reset operation: ")
+			if verify == ("YES"):
+				print('Password database has been deleted')
+				reset_B = True
+				reset()
+			else:
+				print("reset operation STOPED!")
+		else:
+			print('\nEnter valid command.\n')
+except:
+	main_menu()
+
+#last updated 2 OCT 2022
