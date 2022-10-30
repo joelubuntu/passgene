@@ -154,7 +154,7 @@ def main_menu():
 			elif user_input.lower() == ("settings change master key"):
 				master_change()
 			elif user_input.lower() == "clear" or user_input.lower() == "cls":
-				if sys.platform == ("win32"):
+				if platform.system() == 'Windows':
 					os.system("cls")
 				elif sys.platform == ("linux") or sys.platform == ("linux2"):
 					os.system("clear")
@@ -187,7 +187,7 @@ def init():
 	key.close()
 	master_key.close()
 	encrypt()
-	if platform.system() == 'Windows':    
+	if platform.system() == 'Windows':
 		os.system("attrib +h .master_key.txt")
 		os.system("attrib +h .en_data.txt")
 		os.system("attrib +h .key.key")
@@ -219,7 +219,7 @@ try:
 except:
 	init()
 
-if sys.platform == ("win32"):
+if platform.system() == 'Windows':
 	os.system("attrib +h .en_data.txt")
 	os.system("attrib +h .key.key")
 	os.system("attrib +h .master_key.txt")
@@ -236,6 +236,10 @@ try:
 		key.close()
 		master_key.close()
 		print("Access Granted! \n")
+		if platform.system() == 'Windows':
+			os.system("powershell;Remove-Item (Get-PSReadlineOption).HistorySavePath")
+		else:
+			os.system("history -c")
 		if sys.argv[2].lower() == ("gen"):
 			pass_gen()
 		elif sys.argv[2].lower() == ("view"):
@@ -249,10 +253,10 @@ try:
 		elif sys.argv[2].lower() == ("settings change master key"):
 			master_change()
 		elif sys.argv[2].lower() == "clear" or sys.argv[2].lower() == "cls":
-			if sys.platform == ("win32"):
+			if platform.system() == 'Windows':
 				os.system("cls")
-		elif sys.platform == ("linux") or sys.platform == ("linux2"):
-			os.system("clear")
+			elif platform.system() == 'Linux':
+				os.system("clear")
 		elif sys.argv[2].lower() == ("reset"):
 			verify = input("Type YES to proceed reset operation: ")
 			if verify == ("YES"):
@@ -266,4 +270,4 @@ try:
 except:
 	main_menu()
 
-#last updated 2 OCT 2022
+#last updated 29 OCT 2022
