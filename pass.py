@@ -6,6 +6,7 @@ except:
 		os.system("pip intall cryptography")
 	elif platform.system() == 'Linux':
 		os.system("pip3 intall cryptography")
+		
 def pass_gen():
 	a = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
 	b = random.choice(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
@@ -23,7 +24,7 @@ def pass_gen():
 	if user_input.lower() == ('y'):
 		account = input("\nThis password is for which site / app : ")
 		username = input("username of " + account + ": " )
-		appending_txt = ("\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + " is: " + passwd)
+		appending_txt = ("\n\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + " is: " + passwd)
 		decrypt(appending_txt)
 	else:
 		print("Okay as you wish!")
@@ -32,7 +33,7 @@ def add():
 	account = input("\nThis account is of: ")
 	username = input("Enter your account username: ")
 	passwd = input ("Enter your password: ")
-	appending_txt = ("\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + " is: " + passwd + "\n\n")
+	appending_txt = ("\n\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + " is: " + passwd)
 	decrypt(appending_txt)
 
 def view_pass():
@@ -62,7 +63,6 @@ def welcome():
 	elif time <= 23 and time >= 17:
 		print("Good Evening")
 	print(name)
-
 
 def encrypt():
 	with open('.de_data.txt','rb') as file_data:
@@ -109,7 +109,6 @@ def dev_decrypt():
 	en_data.close()
 	key.close()
 	de_file_data.close()
-	os.remove(".en_data.txt")
 
 def reset():
 	os.remove(".key.key")
@@ -132,7 +131,7 @@ def main_menu():
 		print('+------------------------------------------------------------------------------------------------+')
 		print("|gen pass - it genrates new password of 10 digits.                                               |")
 		print("|view pass - it prints saved password if file is not renamed or modified.                        |")
-		print("|add - through this feature you can add you custom password in password file.                    |")
+		print("|add - through this feature you can add you custom password in pencassword file.                    |")
 		print("|reset - it format saved password database                                                       |")
 		print('+------------------------------------------------------------------------------------------------+')
 		global exit , reset_B
@@ -213,9 +212,7 @@ welcome()
 
 try:
 	key_open = open('.key.key','r')
-	file_open = open('.en_data.txt','r')
 	key_open.close()
-	file_open.close()
 except:
 	init()
 
@@ -270,4 +267,4 @@ try:
 except:
 	main_menu()
 
-#last updated 29 OCT 2022
+#last updated 13 NOV 2022
