@@ -3,9 +3,9 @@ try:
 	from cryptography.fernet import Fernet
 except:
 	if platform.system() == 'Windows':
-		os.system("pip intall cryptography")
+		os.system("pip install cryptography")
 	elif platform.system() == 'Linux':
-		os.system("pip3 intall cryptography")
+		os.system("pip3 install cryptography")
 		
 def pass_gen():
 	a = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
