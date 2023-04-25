@@ -12,14 +12,22 @@ def pass_gen():
 	b = random.choice(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
 	c = random.choice([':','!','@','#','$','%','^','&','*','(',')','_','+','|',';','.','`','<','>','?','~'])
 	d = random.choice(['1','2','3','4','5','6','7','8','9','0'])
-	e = random.choice(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
-	f = random.choice(['1','2','3','4','5','6','7','8','9','0'])
+	e = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
+	f = random.choice(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
 	g = random.choice([':','!','@','#','$','%','^','&','*','(',')','_','+','|',';','.','`','<','>','?','~'])
-	h = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
-	i = random.choice(['no','hm','lo','py','gg','op','hi'])
-	j = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
-	passwd = ( a + b + c + d + e + f + g + h + i + j )
-	print("\nYour random 10 digit password is: " + passwd)
+	h = random.choice(['1','2','3','4','5','6','7','8','9','0'])
+	i = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
+	j = random.choice(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
+	k = random.choice([':','!','@','#','$','%','^','&','*','(',')','_','+','|',';','.','`','<','>','?','~'])
+	l = random.choice(['1','2','3','4','5','6','7','8','9','0'])
+	m = random.choice(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
+	n = random.choice(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'])
+	o = random.choice([':','!','@','#','$','%','^','&','*','(',')','_','+','|',';','.','`','<','>','?','~'])
+	password = ''
+	for i in range(15):
+		unit = random.choice([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o])
+		password += str(unit)
+	print("\nYour random 10 digit password is: " + password)
 	user_input = input("\nWould you like to save your password? \n Press y for YES and n for NO: ")
 	if user_input.lower() == ('y'):
 		account = input("\nThis password is for which site / app : ")
@@ -131,7 +139,7 @@ def main_menu():
 		print('+------------------------------------------------------------------------------------------------+')
 		print("|gen pass - it genrates new password of 10 digits.                                               |")
 		print("|view pass - it prints saved password if file is not renamed or modified.                        |")
-		print("|add - through this feature you can add you custom password in pencassword file.                    |")
+		print("|add - through this feature you can add you custom password in password file.                    |")
 		print("|reset - it format saved password database                                                       |")
 		print('+------------------------------------------------------------------------------------------------+')
 		global exit , reset_B
@@ -208,7 +216,7 @@ def master_change():
 	print("password changed! ")
 	main_menu()
 
-welcome()
+#welcome()
 
 try:
 	key_open = open('.key.key','r')
@@ -267,4 +275,4 @@ try:
 except:
 	main_menu()
 
-#last updated 13 NOV 2022
+#last updated 25 APRIL 2023
