@@ -32,7 +32,7 @@ def pass_gen():
 	if user_input.lower() == ('y'):
 		account = input("\nThis password is for which site / app : ")
 		username = input("username of " + account + ": " )
-		appending_txt = ("\n\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + " is: " + passwd)
+		appending_txt = ("\n\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + " is: " + password)
 		decrypt(appending_txt)
 	else:
 		print("Okay as you wish!")
