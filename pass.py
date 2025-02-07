@@ -1,4 +1,4 @@
-import datetime , random , os , sys , time , platform
+import datetime , random , os , sys , platform
 try:
 	from cryptography.fernet import Fernet
 except:
@@ -32,7 +32,7 @@ def pass_gen():
 	if user_input.lower() == ('y'):
 		account = input("\nThis password is for which site / app : ")
 		username = input("username of " + account + ": " )
-		appending_txt = ("\n\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + " is: " + password)
+		appending_txt = ("\n\n\n" + account + "\n" + "username : " + username + "\nyour password of " + account + " is: " + password)
 		decrypt(appending_txt)
 	else:
 		print("Okay as you wish!")
@@ -41,7 +41,7 @@ def add():
 	account = input("\nThis account is of: ")
 	username = input("Enter your account username: ")
 	passwd = input ("Enter your password: ")
-	appending_txt = ("\n\n\n" + account + "\n" + "username :" + username + "\nyour password of " + account + " is: " + passwd)
+	appending_txt = ("\n\n\n" + account + "\n" + "username : " + username + "\nyour password of " + account + " is: " + passwd)
 	decrypt(appending_txt)
 
 def view_pass():
@@ -198,7 +198,6 @@ def init():
 		os.system("attrib +h .master_key.txt")
 		os.system("attrib +h .en_data.txt")
 		os.system("attrib +h .key.key")
-	time.sleep(2)
 	print('setup completed!')
 	main_menu()
 
